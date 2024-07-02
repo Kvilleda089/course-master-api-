@@ -4,6 +4,8 @@ import com.example.course_master_api.entity.Student;
 import com.example.course_master_api.entity.Teacher;
 import com.example.course_master_api.repository.TeacherRepository;
 import com.example.course_master_api.service.TeacherSvc;
+import com.example.course_master_api.service.util.EmailUtil;
+import com.example.course_master_api.service.util.PersonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +14,8 @@ import java.util.Optional;
 
 @Service
 public class TeacherSvcImpl implements TeacherSvc {
-    private final static String DOMINIO = "@edu.gt.com";
 
+    private static final String NOT_FOUND = "Lo sentimos, no se encontró información con el id: ";
     @Autowired
     private TeacherRepository teacherRepository;
 
@@ -29,26 +31,15 @@ public class TeacherSvcImpl implements TeacherSvc {
 
     @Override
     public Teacher addTeacher(Teacher teacher) {
-        String email = buildEmail(teacher);
+        String email = EmailUtil.buildEmail(teacher);
         teacher.setEmail(email);
         return teacherRepository.save(teacher);
     }
 
     @Override
     public Teacher updateTeacher(Long id, Teacher teacherUpdate) {
-        Teacher teacher = teacherRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("No se encontró información con el id : "+ id));
-        String buildEmail = buildEmail(teacher);
-        teacher.setFirstName(teacherUpdate.getFirstName());
-        teacher.setSecondName(teacherUpdate.getSecondName());
-        teacher.setSurName(teacherUpdate.getSurName());
-        teacher.setSecondSurname(teacherUpdate.getSecondSurname());
-        teacher.setBirthDate(teacherUpdate.getBirthDate());
-        teacher.setAge(teacherUpdate.getAge());
-        teacher.setEntryYear(teacherUpdate.getEntryYear());
-        teacher.setStatus(teacherUpdate.getStatus());
-        teacher.setCardCode(teacherUpdate.getCardCode());
-        teacher.setEmail(buildEmail);
+        Teacher teacher = teacherRepository.findById(id).orElseThrow(()-> new RuntimeException(NOT_FOUND+ id));
+        PersonUtil.updatePerson(teacher, teacherUpdate);
         teacher.setFacultyId(teacherUpdate.getFacultyId());
         return teacherRepository.save(teacher);
     }
@@ -56,15 +47,9 @@ public class TeacherSvcImpl implements TeacherSvc {
   @Override
   public Teacher deleteTeacher(Long id) {
         Teacher teacher = teacherRepository.findById(id).orElseThrow(
-                ()-> new RuntimeException("No se ha encontrado registro con el id : "+ id));
+                ()-> new RuntimeException(NOT_FOUND+ id));
         teacherRepository.delete(teacher);
       return teacher;
   }
 
-  public String buildEmail(Teacher teacher){
-        String firstName = teacher.getFirstName().toLowerCase();
-        String secondSurname = teacher.getSecondSurname().toLowerCase();
-        String buildEmail = firstName.charAt(0) + secondSurname + DOMINIO;
-        return buildEmail;
-    }
 }
