@@ -1,6 +1,5 @@
 package com.example.course_master_api.service.impl;
 
-import com.example.course_master_api.entity.Student;
 import com.example.course_master_api.entity.Teacher;
 import com.example.course_master_api.repository.TeacherRepository;
 import com.example.course_master_api.service.TeacherSvc;

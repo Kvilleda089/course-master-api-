@@ -18,13 +18,13 @@ public class StudentController {
     private StudentSvc studentSvc;
 
     @GetMapping
-    public List<Student> getAllStudents() {
-        return studentSvc.getAllStudents();
+    public ResponseEntity<List<Student>> getAllStudents() {
+        return new ResponseEntity<>(studentSvc.getAllStudents(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public Optional<Student>  getStudentById(@PathVariable("id") Long id) {
-        return studentSvc.getStudentById(id);
+    public ResponseEntity<Optional<Student> > getStudentById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(studentSvc.getStudentById(id), HttpStatus.OK);
     }
 
     @PostMapping
