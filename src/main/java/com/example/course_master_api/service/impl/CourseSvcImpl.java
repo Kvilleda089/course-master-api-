@@ -35,8 +35,6 @@ public class CourseSvcImpl implements CourseSvc {
        Course course = courseRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("No se ha encontrado ningún curso con el id " + id));
         course.setCourseName(courseUpdate.getCourseName());
-        course.setCourseStartTime(courseUpdate.getCourseStartTime());
-        course.setCourseEndTime(courseUpdate.getCourseEndTime());
         course.setNumberSemester(courseUpdate.getNumberSemester());
        return courseRepository.save(course);
     }

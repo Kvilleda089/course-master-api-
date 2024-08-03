@@ -5,11 +5,11 @@ import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @MappedSuperclass
-public abstract class Person implements Serializable {
+public class Person implements Serializable {
     @Column(name = "first_name")
     private String firstName;
 
@@ -23,13 +23,13 @@ public abstract class Person implements Serializable {
     private String secondSurname;
 
     @Column(name = "birth_date")
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @Column(name = "age")
     private Long age;
 
     @Column(name = "entry_year")
-    private Date entryYear;
+    private LocalDate entryYear;
 
     @Column(name = "status")
     private String status;

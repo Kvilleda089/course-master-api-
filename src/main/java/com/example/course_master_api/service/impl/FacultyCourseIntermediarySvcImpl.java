@@ -37,6 +37,7 @@ public class FacultyCourseIntermediarySvcImpl implements FacultyCourseIntermedia
         FacultyCourseIntermediary facultyCourseIntermediary = facultyCourseIntermediaryRepository.findById(id).orElseThrow(()-> new RuntimeException(NOT_FOUND + id));
         facultyCourseIntermediary.setIdCourse(facultyCourseIntermediaryUpdate.getIdCourse());
         facultyCourseIntermediary.setIdFaculty(facultyCourseIntermediaryUpdate.getIdFaculty());
+        facultyCourseIntermediaryRepository.save(facultyCourseIntermediary);
         return facultyCourseIntermediary;
     }
 

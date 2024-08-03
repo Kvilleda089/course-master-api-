@@ -18,12 +18,6 @@ public class Course {
     @Column(name = "course_name")
     private String courseName;
 
-    @Column(name = "course_start_time")
-    private LocalTime courseStartTime;
-
-    @Column(name = "course_end_time")
-    private LocalTime courseEndTime;
-
     @Column(name = "number_semester")
     private Long numberSemester;
 }

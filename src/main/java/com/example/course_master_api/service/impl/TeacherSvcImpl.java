@@ -31,7 +31,7 @@ public class TeacherSvcImpl implements TeacherSvc {
     @Override
     public Teacher addTeacher(Teacher teacher) {
         String email = EmailUtil.buildEmail(teacher);
-        teacher.setEmail(email);
+        teacher.setEmail(email.trim());
         return teacherRepository.save(teacher);
     }
 

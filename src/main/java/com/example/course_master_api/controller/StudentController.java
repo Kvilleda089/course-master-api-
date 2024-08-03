@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("v1/students")
@@ -23,7 +22,7 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Student> > getStudentById(@PathVariable("id") Long id) {
+    public ResponseEntity<Student> getStudentById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(studentSvc.getStudentById(id), HttpStatus.OK);
     }
 
